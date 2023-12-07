@@ -1,6 +1,8 @@
 const buttonStart = document.querySelector('button.button-start');
 const buttonStop = document.querySelector('button.button-stop');
 
+let timerId = null
+
 buttonStart.addEventListener('click', () => {
   buttonStart.setAttribute('disabled', true);
   buttonStop.removeAttribute('disabled');
