@@ -45,36 +45,34 @@ const options = {
     let pickedDate = selectedDates[0].getTime();
 
     if (pickedDate < new Date().getTime()) {
-      startEl.disabled = true
+      startEl.disabled = true;
       Notiflix.Notify.failure('Please choose a date in the future');
     } else {
-      startEl.addEventListener('click', () => {
-        startEl.disabled = true;
-
-        let timer = setInterval(() => {
-          let currentDate = new Date().getTime();
-          const difference = pickedDate - currentDate;
-
-          let differenceToObject = convertMs(difference);
-
-          daysEl.innerHTML = addLeadingZero(differenceToObject.days);
-          hoursEl.innerHTML = addLeadingZero(differenceToObject.hours);
-          minutesEl.innerHTML = addLeadingZero(differenceToObject.minutes);
-          secondsEl.innerHTML = addLeadingZero(differenceToObject.seconds);
-
-          if (difference <= 0) {
-            clearInterval(timer);
-            Notiflix.Notify.success('Countdown finished!');
-            startEl.disabled = false;
-          }
-        }, 1000);
-      });
+      startEl.disabled = false;
     }
   },
 };
 
-flatpickr(datePickerEl, options);
+startEl.addEventListener('click', () => {
+  startEl.disabled = true;
 
-console.log(convertMs(3000)); // {days: 0, hours: 0, minutes: 0, seconds: 3}
-console.log(convertMs(150000)); // {days: 0, hours: 0, minutes: 2, seconds: 30}
-console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
+  let timer = setInterval(() => {
+    let currentDate = new Date().getTime();
+    const difference = pickedDate - currentDate;
+
+    let differenceToObject = convertMs(difference);
+
+    daysEl.innerHTML = addLeadingZero(differenceToObject.days);
+    hoursEl.innerHTML = addLeadingZero(differenceToObject.hours);
+    minutesEl.innerHTML = addLeadingZero(differenceToObject.minutes);
+    secondsEl.innerHTML = addLeadingZero(differenceToObject.seconds);
+
+    if (difference < 0) {
+      clearInterval(timer);
+      Notiflix.Notify.success('Countdown finished!');
+      startEl.disabled = false;
+    }
+  }, 1000);
+});
+
+flatpickr(datePickerEl, options);
