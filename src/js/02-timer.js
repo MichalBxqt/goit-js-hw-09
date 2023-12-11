@@ -45,6 +45,7 @@ const options = {
     let pickedDate = selectedDates[0].getTime();
 
     if (pickedDate < new Date().getTime()) {
+      startEl.disabled = true
       Notiflix.Notify.failure('Please choose a date in the future');
     } else {
       startEl.addEventListener('click', () => {
