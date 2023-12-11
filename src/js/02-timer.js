@@ -51,25 +51,25 @@ const options = {
       startEl.disabled = false;
       startEl.addEventListener('click', () => {
         startEl.disabled = true;
-      
+
         let timer = setInterval(() => {
           let currentDate = new Date().getTime();
           const difference = pickedDate - currentDate;
-      
+
           let differenceToObject = convertMs(difference);
-      
+
           daysEl.innerHTML = addLeadingZero(differenceToObject.days);
           hoursEl.innerHTML = addLeadingZero(differenceToObject.hours);
           minutesEl.innerHTML = addLeadingZero(differenceToObject.minutes);
           secondsEl.innerHTML = addLeadingZero(differenceToObject.seconds);
-      
-          if (difference < 0) {
+
+          if (difference <= 0) {
             clearInterval(timer);
             Notiflix.Notify.success('Countdown finished!');
             startEl.disabled = false;
           }
         }, 1000);
-      })
+      });
     }
   },
 };
